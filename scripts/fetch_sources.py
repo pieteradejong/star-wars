@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Download every third-party source into data/raw/ (gitignored).
 
-Nothing here is committed: the dump is 262 MB, it carries its own licence, and
+Nothing here is committed: the dump is 275 MB, it carries its own licence, and
 it changes upstream. Run `make data` to fetch and then rebuild the corpus under
 data/derived/.
 

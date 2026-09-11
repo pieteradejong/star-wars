@@ -142,7 +142,7 @@ def get(url: str, *, respect_robots: bool = True) -> Result:
 def stream_to(url: str, dest: Path, *, respect_robots: bool = True) -> Result:
     """Fetch a large file straight to disk, in chunks, without holding it in RAM.
 
-    The Wookieepedia dump is 262 MB; reading it into a bytes object first is
+    The Wookieepedia dump is 275 MB; reading it into a bytes object first is
     avoidable waste. Writes to `<dest>.part` and renames on success, so an
     interrupted download never leaves a truncated file that looks cached.
     """

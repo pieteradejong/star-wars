@@ -15,7 +15,7 @@
 #
 # Usage:
 #   ./test.sh              everything available
-#   ./test.sh --fast       skip the sections that read the 262 MB dump
+#   ./test.sh --fast       skip the sections that read the 275 MB dump
 #   ./test.sh lint         one section by name (lint|unit|boundary|data|manifest|docs)
 set -uo pipefail
 

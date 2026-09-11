@@ -1,6 +1,6 @@
 # Mirrors ./test.sh, minus the sections that need the sources.
 #
-# The 262 MB Wookieepedia dump is deliberately NOT fetched here. CI's job is to
+# The 275 MB Wookieepedia dump is deliberately NOT fetched here. CI's job is to
 # prove the code is sound and, above all, that no fetched or generated data has
 # been committed -- the data-boundary step below is the mechanical enforcement
 # of this repository's whole licensing position, and it is the one step that
@@ -89,6 +89,6 @@ jobs:
         run: mypy --ignore-missing-imports scripts
 
       - name: Tests
-        # Sections needing the 262 MB dump skip themselves; --fast makes that
+        # Sections needing the 275 MB dump skip themselves; --fast makes that
         # explicit rather than incidental.
         run: ./test.sh --fast

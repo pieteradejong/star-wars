@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Stream pages out of a MediaWiki XML dump without ever unpacking it.
 
-The Wookieepedia dump is 262 MB of 7z that expands to several GB of XML. There
+The Wookieepedia dump is 275 MB of 7z that expands to several GB of XML. There
 is no reason for those GB to exist: `7z x -so` writes the archive to stdout,
 iterparse consumes it as it arrives, and each element is cleared once read. Peak
 memory stays flat and the only bytes on disk are the ones already downloaded.

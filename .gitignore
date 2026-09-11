@@ -1,0 +1,27 @@
+# Third-party source data: fetched by scripts/fetch_sources.py, never committed.
+# The Wookieepedia dump is 262 MB compressed and git history never shrinks, and
+# the text is CC BY-SA, whose share-alike travels with anything derived from it.
+# data/raw/dialogue/ is worse still: film scripts are Lucasfilm copyright and are
+# cached here for personal use only. data/MANIFEST.csv IS tracked and
+# carries the sha256 of every file, which is what makes drift detectable without
+# storing the bytes. Rebuild with `make data`.
+data/raw/
+
+# Generated corpus: rebuilt by `make data` from data/raw/ + data/curated/.
+# Derived from the upstream wiki text, so it inherits the upstream licence and
+# stays out of the repo for the same reason data/raw/ does.
+data/derived/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+*.swp

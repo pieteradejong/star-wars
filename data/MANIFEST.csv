@@ -1,0 +1,9 @@
+source,kind,url,http_status,content_type,bytes,sha256,licence,retrieved
+swapi/films,api,https://swapi.tech/api/films,200,application/json,23218,f9bd2ea0e8741e66563981a05979815fe96babdf59b89c5e002a8593e54ded59,"SWAPI (swapi.tech), free API -- data about copyrighted works",2026-09-11
+swapi/people,api,https://swapi.tech/api/people,200,application/json,7753,6ec46f304d69271d3809b044f2aa8ab93ad332f1d511ff95e736f7df8fb76d9e,"SWAPI (swapi.tech), free API -- data about copyrighted works",2026-09-11
+swapi/planets,api,https://swapi.tech/api/planets,200,application/json,5534,e0771e35c5cd2f0b10c3610049da6a669cb602fc30d66a43edd049bbd5e0a99b,"SWAPI (swapi.tech), free API -- data about copyrighted works",2026-09-11
+swapi/species,api,https://swapi.tech/api/species,200,application/json,3398,5056203fd835a1c8f1c62bafe14da0b8a65c525cf56e46b35e430a088229f410,"SWAPI (swapi.tech), free API -- data about copyrighted works",2026-09-11
+swapi/starships,api,https://swapi.tech/api/starships,200,application/json,3688,bbcf3ae1b789b74fcb1271be89ffbcb39fd6dd3f2891f8fee7d5c518dbd0e226,"SWAPI (swapi.tech), free API -- data about copyrighted works",2026-09-11
+swapi/vehicles,api,https://swapi.tech/api/vehicles,200,application/json,3980,0b604ef38647340115016e8c64b305618681a9c2059bf4223e49fc68a91b9450,"SWAPI (swapi.tech), free API -- data about copyrighted works",2026-09-11
+wikidata/works,api,https://query.wikidata.org/sparql,200,application/json,1711203,bda9fed51d151c05154819c5d081f33a74ff1ea1ad39efd3685430116ca64ae7,CC0-1.0 (Wikidata),2026-09-11
+wookieepedia.xml.7z,dump,https://s3.amazonaws.com/wikia_xml_dumps/s/st/starwars_pages_current.xml.7z,200,application/x-7z-compressed,275135051,4c102c92b3f3ada0d5601db282c193292e087ed4a47f71f640efd66a934cb402,CC-BY-SA-3.0 (Wookieepedia),2026-09-11

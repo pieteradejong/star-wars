@@ -1,0 +1,60 @@
+# The source register: what this project reads, under what terms, and why.
+# Hand-authored and committed -- unlike data/raw/ and data/derived/, which are
+# fetched, generated, and gitignored. Covered by LICENSE-DATA (CC BY 4.0).
+#
+# scripts/fetch_sources.py is the code that acts on this; the two are kept in
+# agreement by tests/test_manifest.py, which asserts every fetched row carries
+# the licence recorded here.
+
+- id: wookieepedia
+  title: Wookieepedia, the Star Wars Wiki
+  url: https://s3.amazonaws.com/wikia_xml_dumps/s/st/starwars_pages_current.xml.7z
+  site: https://starwars.fandom.com/
+  licence: CC-BY-SA-3.0
+  rights: share-alike
+  role: spine
+  gives: every published work, its infobox and its plot summary
+  dump_date: 2026-08-01
+  articles: 228668
+  bytes: 275148000
+  note: >
+    Db name is "starwars"; confirmed via api.php?action=query&meta=siteinfo,
+    as was the licence via the same endpoint's rightsinfo. The dump is never
+    extracted -- scripts/dump.py streams it through 7z.
+
+- id: swapi
+  title: SWAPI, the Star Wars API
+  url: https://swapi.tech/api
+  licence: free API, no explicit grant
+  rights: data about copyrighted works
+  role: enrichment
+  gives: the six original films and their in-universe entities
+  note: >
+    Evaluated as the spine and rejected: no extended-universe coverage at all.
+    See README "Sources evaluated and not used".
+
+- id: wikidata
+  title: Wikidata
+  url: https://query.wikidata.org/sparql
+  licence: CC0-1.0
+  rights: public domain
+  role: cross-check
+  gives: publication dates and authorship
+  query_anchor: P8345 (media franchise) = Q462
+  rows: 4678
+  note: >
+    Thin for this franchise -- 314 authors and 4 ISBNs in total. Two other
+    anchors were measured and were worse: P1080=Q19786052 returns 1,841
+    in-universe entities with no authors, P179=Q462 returns 16 rows.
+
+- id: imsdb
+  title: IMSDb film screenplays
+  url: https://imsdb.com/scripts/
+  licence: NONE -- Lucasfilm copyright, hosted without a grant
+  rights: local use only, never redistributed
+  role: dialogue
+  gives: verbatim screenplay text for the theatrical films
+  note: >
+    Fetched only by `make dialogue`, never by `make data`. Writes solely to
+    data/raw/dialogue/, and scripts/fetch_dialogue.py refuses to run unless git
+    confirms that path is ignored. Not part of the published corpus.

@@ -1,0 +1,38 @@
+[project]
+name = "star-wars-corpus"
+version = "0.1.0"
+description = "A provenance-tracked inventory of the Star Wars extended universe, built from the Wookieepedia dump"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+# No runtime dependencies by design: the fetchers and parsers are standard
+# library only, so `make data` works on a clean machine with nothing installed.
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["ruff", "black", "mypy"]
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+src = ["scripts", "tests"]
+
+[tool.ruff.lint]
+# E402 is enabled deliberately: the test modules must insert scripts/ on
+# sys.path before importing from it, and the `# noqa: E402` on those imports
+# should mean something rather than being silently unused.
+select = ["E", "F", "W", "I", "UP", "B", "RUF"]
+ignore = [
+    "E501",  # line length is black's job, and it disagrees on comments
+]
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+# The scripts are plain procedural code over JSON; requiring annotations on
+# every local would be noise. Type errors that matter are still caught.
+disallow_untyped_defs = false
+warn_unused_ignores = true

@@ -107,18 +107,19 @@ def _allowed(url: str) -> bool:
     parts = urllib.parse.urlsplit(url)
     origin = f"{parts.scheme}://{parts.netloc}"
     if origin not in _robots:
-        rp = urllib.robotparser.RobotFileParser()
-        rp.set_url(f"{origin}/robots.txt")
+        robots_url = f"{origin}/robots.txt"
+        parser = urllib.robotparser.RobotFileParser()
+        parser.set_url(robots_url)
         try:
             _throttle()
-            req = urllib.request.Request(rp.url, headers={"User-Agent": UA})
+            req = urllib.request.Request(robots_url, headers={"User-Agent": UA})
             with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
-                rp.parse(r.read().decode("utf-8", "replace").splitlines())
-            _robots[origin] = rp
+                parser.parse(r.read().decode("utf-8", "replace").splitlines())
+            _robots[origin] = parser
         except Exception:
             _robots[origin] = None
-    rp = _robots[origin]
-    return True if rp is None else rp.can_fetch(UA, url)
+    cached = _robots[origin]
+    return True if cached is None else cached.can_fetch(UA, url)
 
 
 def get(url: str, *, respect_robots: bool = True) -> Result:

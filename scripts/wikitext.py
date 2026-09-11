@@ -264,7 +264,8 @@ def lead(text: str) -> str:
     first = re.search(r"^={2,4}\s*.+?\s*={2,4}\s*$", text, re.M)
     head = text[: first.start()] if first else text
     # Drop every top-level template (the infobox and the maintenance banners).
-    out, depth, buf = [], 0, []
+    buf: list[str] = []
+    depth = 0
     i, n = 0, len(head)
     while i < n:
         two = head[i : i + 2]
@@ -279,8 +280,7 @@ def lead(text: str) -> str:
         if depth == 0:
             buf.append(head[i])
         i += 1
-    out = "".join(buf)
-    return flatten(out)
+    return flatten("".join(buf))
 
 
 YEAR = re.compile(r"\b(1[89]\d{2}|20\d{2})\b")

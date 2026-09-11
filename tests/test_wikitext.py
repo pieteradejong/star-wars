@@ -88,6 +88,18 @@ class TestInfobox(unittest.TestCase):
         self.assertEqual(wt.year_of(self.params["release date"]), 1991)
         self.assertIsNone(wt.year_of("no date here"))
 
+    def test_year_survives_a_template_wrapped_date(self) -> None:
+        """Memory Beta writes {{srcdate|2008|February}}; flattening first
+        strips the template and loses the year entirely."""
+        self.assertEqual(wt.year_of("{{srcdate|2008|February}}"), 2008)
+
+    def test_year_ignores_a_citation_year(self) -> None:
+        """A <ref> naming a differently-dated source sits in the same field."""
+        self.assertEqual(
+            wt.year_of("<ref name='YBY'>Year By Year, 2012</ref>[[May 1]], [[1991]]"),
+            1991,
+        )
+
 
 class TestFlatten(unittest.TestCase):
     def test_strips_markup(self) -> None:

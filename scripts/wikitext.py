@@ -287,6 +287,17 @@ YEAR = re.compile(r"\b(1[89]\d{2}|20\d{2})\b")
 
 
 def year_of(value: str) -> int | None:
-    """First plausible publication year in a release-date field."""
-    m = YEAR.search(flatten(value))
+    """First plausible publication year in a release-date field.
+
+    Searches the RAW value, not the flattened one. Memory Beta writes dates as
+    `{{srcdate|2008|February}}` and flatten() strips templates wholesale, so
+    flattening first silently loses the year on every novel there.
+
+    Citations are removed first: a <ref> naming a source published in another
+    year sits inside the same field and would otherwise win by being earlier in
+    the string. Beyond that, searching raw markup is safe because YEAR only
+    matches 1800-2099, so an in-universe stardate like [[2376]] cannot be
+    mistaken for a publication year.
+    """
+    m = YEAR.search(_REF.sub("", value))
     return int(m.group(1)) if m else None

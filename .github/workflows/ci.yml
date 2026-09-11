@@ -53,8 +53,15 @@ jobs:
             echo "$bulk"
             exit 1
           fi
+          # `if`, not `&&`: this workflow's shell is `bash -e`, and a trailing
+          # `&&` chain that ends false makes the whole assignment exit 1 --
+          # which fails the step with no message whenever the LAST tracked file
+          # happens to be under the limit. Found by CI; the local runner uses
+          # `set -uo pipefail` without -e and never saw it.
           big=$(git ls-files | while read -r f; do
-                  [ -f "$f" ] && [ "$(wc -c <"$f")" -gt 1000000 ] && echo "$f"
+                  if [ -f "$f" ] && [ "$(wc -c <"$f")" -gt 1000000 ]; then
+                    echo "$f"
+                  fi
                 done)
           if [ -n "$big" ]; then
             echo "::error::tracked files over 1 MB:"

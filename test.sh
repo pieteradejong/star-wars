@@ -111,8 +111,14 @@ if want boundary; then
     leaked=$(git ls-files | grep -E '^data/(raw|derived)/' || true)
     if [ -z "$leaked" ]; then pass "no fetched data tracked by git"
     else fail "fetched data tracked by git: $leaked"; fi
+    # `if`, not a trailing `&&` chain: the chain ends false whenever the last
+    # tracked file is under the limit, which makes the assignment exit 1. This
+    # script does not `set -e`, but the CI workflow's shell does, and the same
+    # snippet failed there with no message at all.
     big=$(git ls-files | while read -r f; do
-            [ -f "$f" ] && [ "$(wc -c <"$f")" -gt 1000000 ] && echo "$f"
+            if [ -f "$f" ] && [ "$(wc -c <"$f")" -gt 1000000 ]; then
+              echo "$f"
+            fi
           done)
     if [ -z "$big" ]; then pass "no tracked file over 1 MB"
     else fail "tracked files over 1 MB: $big"; fi

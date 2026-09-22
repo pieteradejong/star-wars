@@ -25,3 +25,7 @@ __pycache__/
 .vscode/
 .idea/
 *.swp
+
+# Secrets: .gitignore baseline (docs/policy/repo-standards.md)
+.env
+.env.*

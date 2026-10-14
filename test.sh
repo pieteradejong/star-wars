@@ -21,6 +21,8 @@ set -uo pipefail
 
 cd "$(dirname "$0")" || exit 2
 PY=${PY:-python3}
+# ./init.sh puts the dev tools (ruff, black, mypy) in .venv/; make them visible here.
+[ -d .venv/bin ] && PATH="$PWD/.venv/bin:$PATH"
 
 RED=$'\033[31m'; GREEN=$'\033[32m'; YELLOW=$'\033[33m'; DIM=$'\033[2m'; OFF=$'\033[0m'
 [ -t 1 ] || { RED=""; GREEN=""; YELLOW=""; DIM=""; OFF=""; }
@@ -72,6 +74,7 @@ FAST=0
 WANT="all"
 for arg in "$@"; do
   case "$arg" in
+    -h|--help) sed -n '2,19p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
     --fast) FAST=1 ;;
     lint|unit|boundary|data|manifest|docs) WANT="$arg" ;;
     *) echo "unknown argument: $arg" >&2; exit 2 ;;
